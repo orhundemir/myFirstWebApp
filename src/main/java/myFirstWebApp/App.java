@@ -39,7 +39,8 @@ public class App {
     public static void main(String[] args) {
         Logger logger = LogManager.getLogger(App.class);
         logger.error("error");
-
+        int port = Integer.parseInt(System.getenv("PORT"));
+        port(port);
         get("/", (req, res) -> "Welcome :)");
 
         post("/compute", (req, res) -> {
