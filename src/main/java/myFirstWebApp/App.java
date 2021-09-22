@@ -3,37 +3,83 @@
  */
 package myFirstWebApp;
 
+import static spark.Spark.get;
+import static spark.Spark.port;
+import static spark.Spark.post;
+import spark.ModelAndView;
+import spark.template.mustache.MustacheTemplateEngine;
+
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 public class App {
     public String getGreeting() {
         return "Hello world.";
     }
 
-    public static double dailyCalorieDeficit(ArrayList<Double> nutritiveValuesList,String gender,double height,double weight,Integer age){
-        double basalMethobolismSpeed=0;
-        if(gender.equals("male")) {
-            basalMethobolismSpeed=66+(9.6*weight)+(1.7*height)-4.7*age;
-        }
-        else if(gender.equals("female")) {
-            basalMethobolismSpeed=665+(9.6*weight)+(1.7*height)-4.7*age;
-        }
-        else {
+    public static double dailyCalorieDeficit(ArrayList<Double> nutritiveValuesList, String gender, double height,
+            double weight, Integer age) {
+        double basalMethobolismSpeed = 0;
+        if (gender.equals("male")) {
+            basalMethobolismSpeed = 66 + (9.6 * weight) + (1.7 * height) - 4.7 * age;
+        } else if (gender.equals("female")) {
+            basalMethobolismSpeed = 665 + (9.6 * weight) + (1.7 * height) - 4.7 * age;
+        } else {
             throw new ArithmeticException("Invalid gender");
         }
 
-        return nutritiveValuesList.stream().reduce(0.0, (a,b) ->a+b) - basalMethobolismSpeed;
+        return nutritiveValuesList.stream().reduce(0.0, (a, b) -> a + b) - basalMethobolismSpeed;
 
     }
+
     public static void main(String[] args) {
-        System.out.println(new App().getGreeting());
-        ArrayList<Double> nutritiveValuesList = new ArrayList<>();
-        nutritiveValuesList.add(50.0);
-        nutritiveValuesList.add(50.0);
-        nutritiveValuesList.add(50.0);
-        nutritiveValuesList.add(50.0);
-        nutritiveValuesList.add(50.0);
-        
-        System.out.println(dailyCalorieDeficit(nutritiveValuesList, "female", 180, 90, 20)); 
+        Logger logger = LogManager.getLogger(App.class);
+        logger.error("error");
+
+        get("/", (req, res) -> "Welcome :)");
+
+        post("/compute", (req, res) -> {
+            // System.out.println(req.queryParams("input1"));
+            // System.out.println(req.queryParams("input2"));
+
+            String input1 = req.queryParams("input1");
+            java.util.Scanner sc1 = new java.util.Scanner(input1);
+            sc1.useDelimiter("[;\r\n]+");
+            java.util.ArrayList<Double> inputList = new java.util.ArrayList<>();
+            while (sc1.hasNext()) {
+                double value = Double.parseDouble(sc1.next().replaceAll("\\s", ""));
+                inputList.add(value);
+            }
+            sc1.close();
+            System.out.println(inputList);
+
+            String input2 = req.queryParams("input2").replaceAll("\\s", "");
+
+            String input3 = req.queryParams("input3").replaceAll("\\s", "");
+            double input3AsDouble = Double.parseDouble(input3);
+
+            String input4 = req.queryParams("input4").replaceAll("\\s", "");
+            double input4AsDouble = Double.parseDouble(input4);
+
+            String input5 = req.queryParams("input5").replaceAll("\\s", "");
+            int input5AsInt = Integer.parseInt(input5);
+
+            double result = App.dailyCalorieDeficit(inputList, input2, input3AsDouble, input4AsDouble, input5AsInt);
+
+            Map<String, Double> map = new HashMap<String, Double>();
+            map.put("result", result);
+            return new ModelAndView(map, "compute.mustache");
+        }, new MustacheTemplateEngine());
+
+        get("/compute", (rq, rs) -> {
+            Map<String, String> map = new HashMap<String, String>();
+            map.put("result", "not computed yet!");
+            return new ModelAndView(map, "compute.mustache");
+        }, new MustacheTemplateEngine());
     }
+
 }
