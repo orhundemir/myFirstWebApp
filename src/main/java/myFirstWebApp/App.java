@@ -24,10 +24,12 @@ public class App {
     public static double dailyCalorieDeficit(ArrayList<Double> nutritiveValuesList, String gender, double height,
             double weight, Integer age) {
         double basalMethobolismSpeed = 0;
+        // This formula is referenced from the Mifflin-St Jeor Equatian that calculates
+        // basal metobolism rate.
         if (gender.equals("male")) {
-            basalMethobolismSpeed = 66 + (9.6 * weight) + (1.7 * height) - 4.7 * age;
+            basalMethobolismSpeed = 10 * weight + 6.25 * height - 5 * age + 5;
         } else if (gender.equals("female")) {
-            basalMethobolismSpeed = 665 + (9.6 * weight) + (1.7 * height) - 4.7 * age;
+            basalMethobolismSpeed = 10 * weight + 6.25 * height - 5 * age - 161;
         } else {
             throw new ArithmeticException("Invalid gender");
         }
@@ -44,8 +46,6 @@ public class App {
         get("/", (req, res) -> "Welcome :)");
 
         post("/compute", (req, res) -> {
-            // System.out.println(req.queryParams("input1"));
-            // System.out.println(req.queryParams("input2"));
 
             String input1 = req.queryParams("input1");
             java.util.Scanner sc1 = new java.util.Scanner(input1);
@@ -69,16 +69,26 @@ public class App {
             String input5 = req.queryParams("input5").replaceAll("\\s", "");
             int input5AsInt = Integer.parseInt(input5);
 
-            double result = App.dailyCalorieDeficit(inputList, input2, input3AsDouble, input4AsDouble, input5AsInt);
+            double result1 = App.dailyCalorieDeficit(inputList, input2, input3AsDouble, input4AsDouble, input5AsInt);
+            // based on bmr
+            double result2 = result1 + 370; // based on little exercise
+            double result3 = result1 + 770; // based on exercise 2-3 times/week
+            double result4 = result1 + 1660; // based on daily intense exercise
 
             Map<String, Double> map = new HashMap<String, Double>();
-            map.put("result", result);
+            map.put("result1", result1);
+            map.put("result2", result2);
+            map.put("result3", result3);
+            map.put("result4", result4);
             return new ModelAndView(map, "compute.mustache");
         }, new MustacheTemplateEngine());
 
         get("/compute", (rq, rs) -> {
             Map<String, String> map = new HashMap<String, String>();
-            map.put("result", "not computed yet!");
+            map.put("result1", "not computed yet!");
+            map.put("result2", "not computed yet!");
+            map.put("result3", "not computed yet!");
+            map.put("result4", "not computed yet!");
             return new ModelAndView(map, "compute.mustache");
         }, new MustacheTemplateEngine());
     }

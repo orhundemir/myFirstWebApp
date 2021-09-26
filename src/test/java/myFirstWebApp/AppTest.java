@@ -10,13 +10,15 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 class AppTest {
-    @Test void appHasAGreeting() {
+    @Test
+    void appHasAGreeting() {
         App classUnderTest = new App();
         assertNotNull(classUnderTest.getGreeting(), "app should have a greeting");
     }
+
     @Test
     public void GenderTestValid() {
-        ArrayList<Double> list = new ArrayList<>(Arrays.asList(50.0,50.0,50.0,50.0,50.0));
+        ArrayList<Double> list = new ArrayList<>(Arrays.asList(50.0, 50.0, 50.0, 50.0, 50.0));
         String control1 = "male";
         String control2 = "female";
         try {
@@ -27,11 +29,12 @@ class AppTest {
             return;
         }
         assertTrue(true);
-          
+
     }
+
     @Test
     public void GenderTestInvalid() {
-        ArrayList<Double> list = new ArrayList<>(Arrays.asList(50.0,50.0,50.0,50.0,50.0));
+        ArrayList<Double> list = new ArrayList<>(Arrays.asList(50.0, 50.0, 50.0, 50.0, 50.0));
         String control = "-";
         try {
             App.dailyCalorieDeficit(list, control, 180, 90, 20);
@@ -39,33 +42,35 @@ class AppTest {
             assertFalse(false);
         }
     }
-    
+
     @Test
     public void calculationTrueForMale() {
-        ArrayList<Double> list = new ArrayList<>(Arrays.asList(50.0,50.0,50.0,50.0,50.0));
-        if(App.dailyCalorieDeficit(list, "male", 180, 90, 20)==-892.0) 
+        ArrayList<Double> list = new ArrayList<>(Arrays.asList(50.0, 50.0, 50.0, 50.0, 50.0));
+        if (App.dailyCalorieDeficit(list, "male", 180, 90, 20) == -1680.0)
             assertTrue(true);
-        
+
     }
+
     @Test
     public void calculationTrueForFemale() {
-        ArrayList<Double> list = new ArrayList<>(Arrays.asList(50.0,50.0,50.0,50.0,50.0));
-        if(App.dailyCalorieDeficit(list, "female", 180, 90, 20)==-1491.0) 
+        ArrayList<Double> list = new ArrayList<>(Arrays.asList(50.0, 50.0, 50.0, 50.0, 50.0));
+        if (App.dailyCalorieDeficit(list, "female", 180, 90, 20) == -1514.0)
             assertTrue(true);
-        
-    } 
+
+    }
 
     @Test
     public void calculationFalseForMale() {
-        ArrayList<Double> list = new ArrayList<>(Arrays.asList(50.0,50.0,50.0,50.0,50.0));
-        if(App.dailyCalorieDeficit(list, "male", 180, 90, 20)!=-892.0) 
+        ArrayList<Double> list = new ArrayList<>(Arrays.asList(50.0, 50.0, 50.0, 50.0, 50.0));
+        if (App.dailyCalorieDeficit(list, "male", 180, 90, 20) != -1680.0)
             assertFalse(false);
-        
+
     }
+
     @Test
     public void calculationFalseForFemale() {
-        ArrayList<Double> list = new ArrayList<>(Arrays.asList(50.0,50.0,50.0,50.0,50.0));
-        if(App.dailyCalorieDeficit(list, "female", 180, 90, 20)!=-1491.0) 
+        ArrayList<Double> list = new ArrayList<>(Arrays.asList(50.0, 50.0, 50.0, 50.0, 50.0));
+        if (App.dailyCalorieDeficit(list, "female", 180, 90, 20) != -1514.0)
             assertFalse(false);
     }
 
@@ -73,7 +78,7 @@ class AppTest {
     public void testNull() {
         try {
             App.dailyCalorieDeficit(null, "female", 180, 90, 20);
-        } catch(NullPointerException e) {
+        } catch (NullPointerException e) {
             assertFalse(false);
         }
     }
