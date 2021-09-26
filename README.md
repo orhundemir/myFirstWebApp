@@ -6,4 +6,6 @@ This app calculates daily calorie deficit based on daily consumed nutritions, ag
 
 [![Build Status](https://app.travis-ci.com/orhundemir/myFirstWebApp.svg?branch=main)](https://app.travis-ci.com/orhundemir/myFirstWebApp)
 
+Demo Link: https://stark-coast-47730.herokuapp.com/compute
+
 ---------
