@@ -71,9 +71,9 @@ public class App {
 
             double result1 = App.dailyCalorieDeficit(inputList, input2, input3AsDouble, input4AsDouble, input5AsInt);
             // based on bmr
-            double result2 = result1 + 370; // based on little exercise
-            double result3 = result1 + 770; // based on exercise 2-3 times/week
-            double result4 = result1 + 1660; // based on daily intense exercise
+            double result2 = result1 - 370; // based on little exercise
+            double result3 = result1 - 770; // based on exercise 2-3 times/week
+            double result4 = result1 - 1660; // based on daily intense exercise
 
             Map<String, Double> map = new HashMap<String, Double>();
             map.put("result1", result1);

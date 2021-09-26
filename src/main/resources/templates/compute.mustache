@@ -1,18 +1,25 @@
 <title>Daily Calorie Deficit Calculator</title>
   <h1>Calculate your daily calorie deficit!</h1>
-    Result that based on basal metobolism is {{result1}}.<br>
-    If you don't exercise or little, result is {{result2}}.<br>
-    If you exercise 2-3 times a week, result is {{result3}}. <br>
-    If you exercise very intensely daily, result is {{result4}}.<br>
+    Result that based on <b>basal metobolism rate</b> is <b>{{result1}}</b><br>
+    If you don't exercise or little, result is <b>{{result2}}</b><br>
+    If you exercise 2-3 times a week, result is <b>{{result3}}</b><br>
+    If you exercise very intensely daily, result is <b>{{result4}}</b><br>
+    <br>
+    <br>
+    <br>
+    <br>
 
-
+    <b><i>If the result is less than 0, it means you are losing weight. <br>
+    If it is equal to 0, it means you are maintaining your weight. <br>
+    If it's bigger, you're gaining weight. <br></i></b> 
+    
   <form action="compute" method="post">
         
-        <textarea name="input1" rows="10" cols="15">Nutritions (seperate the nutrition values with new line)</textarea>
-        <textarea name="input2" rows="1" cols="25">Gender(male or female)</textarea>
-        <textarea name="input3" rows="1" cols="15">Height(cm)</textarea>
-        <textarea name="input4" rows="1" cols="15">Weight(kg)</textarea>
-        <textarea name="input5" rows="1" cols="10">Age</textarea>
+        <textarea name="input1" rows="10" cols="15"><i>Nutritions (seperate the nutrition values with new line)</i></textarea>
+        <textarea name="input2" rows="1" cols="25"><i>Gender(male or female)</i></textarea>
+        <textarea name="input3" rows="1" cols="15"><i>Height(cm)</i></textarea>
+        <textarea name="input4" rows="1" cols="15"><i>Weight(kg)</i></textarea>
+        <textarea name="input5" rows="1" cols="10"><i>Age</i></textarea>
         <br>
         <input type="submit">
   </form>
